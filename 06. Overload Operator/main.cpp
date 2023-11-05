@@ -284,6 +284,72 @@ public:
 
         return new_time;
     }
+
+    Time operator-(Time& other){
+        int seconds1 = ReturnSeconds(hour, minute, second);
+        int seconds2 = ReturnSeconds(other.hour, other.minute, other.second);
+        Time new_time(seconds1 - seconds2);
+
+        return new_time;
+    }
+
+    Time operator*(Time& other){
+        int seconds1 = ReturnSeconds(hour, minute, second);
+        int seconds2 = ReturnSeconds(other.hour, other.minute, other.second);
+        Time new_time(seconds1 * seconds2);
+
+        return new_time;
+    }
+
+    Time operator/(Time& other){
+        int seconds1 = ReturnSeconds(hour, minute, second);
+        int seconds2 = ReturnSeconds(other.hour, other.minute, other.second);
+        Time new_time(seconds1 / seconds2);
+
+        return new_time;
+    }
+
+    bool operator>(Time& other){
+        int seconds1 = ReturnSeconds(hour, minute, second);
+        int seconds2 = ReturnSeconds(other.hour, other.minute, other.second);
+
+        return (seconds1 > seconds2);
+    }
+
+    bool operator<(Time& other){
+        int seconds1 = ReturnSeconds(hour, minute, second);
+        int seconds2 = ReturnSeconds(other.hour, other.minute, other.second);
+
+        return (seconds1 < seconds2);
+    }
+
+    bool operator>=(Time& other){
+        int seconds1 = ReturnSeconds(hour, minute, second);
+        int seconds2 = ReturnSeconds(other.hour, other.minute, other.second);
+
+        return (seconds1 >= seconds2);
+    }
+
+    bool operator<=(Time& other){
+        int seconds1 = ReturnSeconds(hour, minute, second);
+        int seconds2 = ReturnSeconds(other.hour, other.minute, other.second);
+
+        return (seconds1 <= seconds2);
+    }
+
+    bool operator==(Time& other){
+        int seconds1 = ReturnSeconds(hour, minute, second);
+        int seconds2 = ReturnSeconds(other.hour, other.minute, other.second);
+
+        return (seconds1 == seconds2);
+    }
+
+    bool operator!=(Time& other){
+        int seconds1 = ReturnSeconds(hour, minute, second);
+        int seconds2 = ReturnSeconds(other.hour, other.minute, other.second);
+
+        return (seconds1 != seconds2);
+    }
 };
 
 int main() {
