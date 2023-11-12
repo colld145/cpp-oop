@@ -23,8 +23,6 @@ public:
     void AddToHead(T value)
     {
         Node* new_node = new Node(value, head);
-//        new_node->value = value;
-//        new_node->next = head;
 
         head = new_node;
     }
@@ -104,6 +102,21 @@ public:
             current->next = nullptr;
         }
     }
+
+    void DeleteFromHead()
+    {
+        if(head == nullptr) return;
+
+        if(head->next == nullptr)
+        {
+            delete head;
+            head = nullptr;
+        }
+
+        Node* current = head;
+        head = current->next;
+        delete current;
+    }
 };
 
 
@@ -111,7 +124,8 @@ public:
 Точки зберігаються у вигляді списка (змінна типу List).
 Для класу потрібно реалізувати необхідний набір конструкторів,
 методи для видалення, додавання нової точки на початок та в кінець
-та метод Print() для виводу точок на екран.*/
+та метод Print() для виводу точок на екран.
+Написати метод видалення з голови.*/
 
 struct Point
 {
@@ -176,6 +190,12 @@ public:
         size--;
     }
 
+    void DeletePointFromHead()
+    {
+        points.DeleteFromHead();
+        size--;
+    }
+
     void PrintPoints()
     {
         points.PrintList();
@@ -205,6 +225,8 @@ int main() {
     // --------------------------
 
     Vector vector(5);
+    vector.PrintPoints();
+    vector.DeletePointFromHead();
     vector.PrintPoints();
 
     return 0;
