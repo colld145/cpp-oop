@@ -283,16 +283,22 @@ int main()
     for (char symbol : text){
         if(symbol == '(')
             st1.Push(symbol);
-        if(symbol == '[')
+        else if(symbol == '[')
             st2.Push(symbol);
-        if(symbol == '{')
+        else if(symbol == '{')
             st3.Push(symbol);
-        if(symbol == ')')
+        else if(symbol == ')' && !st1.IsEmpty())
             st1.Pop();
-        if(symbol == '[')
+        else if(symbol == ']' && !st2.IsEmpty())
             st2.Pop();
-        if(symbol == '{')
+        else if(symbol == '}' && !st3.IsEmpty())
             st3.Pop();
+        else if(symbol == ')' && st1.IsEmpty())
+            st1.Push(' ');
+        else if(symbol == ']' && st2.IsEmpty())
+            st2.Push(' ');
+        else if(symbol == '}' && st3.IsEmpty())
+            st3.Push(' ');
     }
 
     if(isValid(st1, st2, st3))
