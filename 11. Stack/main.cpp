@@ -251,6 +251,12 @@ public:
 
 };
 
+bool isValid(Stack<char> &st1, Stack<char> &st2, Stack<char> &st3)
+{
+    if(st1.IsEmpty() && st2.IsEmpty() && st3.IsEmpty())
+        return true;
+}
+
 
 int main()
 {
@@ -269,20 +275,32 @@ int main()
 //        st.Print();
 //    }
 
-    Stack<char> st1(20);
-    Stack<char> st2(20);
-    Stack<char> st3(20);
+    Stack<char> st1(20); // (
+    Stack<char> st2(20); // [
+    Stack<char> st3(20); // {
     string text =  "({x-y-z} * [x + 2y] - (z + 4x))";
-    int i = 0;
-    while(!text.length())
-    {
-        cout << text[i];
-        i++;
-    }
 
     for (char symbol : text){
-
+        if(symbol == '(')
+            st1.Push(symbol);
+        if(symbol == '[')
+            st2.Push(symbol);
+        if(symbol == '{')
+            st3.Push(symbol);
+        if(symbol == ')')
+            st1.Pop();
+        if(symbol == '[')
+            st2.Pop();
+        if(symbol == '{')
+            st3.Pop();
     }
+
+    if(isValid(st1, st2, st3))
+        cout << "Valid code." << endl;
+    else
+        cout << "Invalid code." << endl;
+
+
 
 
 
