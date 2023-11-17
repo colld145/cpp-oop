@@ -178,6 +178,116 @@ public:
     }
 };
 
+/*Створити базовий клас «Animal», який буде описувати тварину.
+Цей клас буде містити загальні характеристики, які притаманні
+кожній тварині:
+•вид
+•швидкість
+•вага
+•середовище мешкання
+•і тд…
+А також методи:
+• Move – метод руху
+• Show – вивід інформації на екран
+• Say – подача звуку
+• і тд…
+Створити похідні класи: Bird, Reptile, Fish.
+Ці класи будуть наслідувати базовий клас Animal, додаючи до
+нього певні характкристики та методи, які притаманні кожному об’єкту.
+Для кожного з видів створити хоча б по одному класу, який
+буде описувати конкретну тварину-представника.
+Ці класи повинні наслідувати характерний для них базовий клас
+(Bird, Reptile, Fish) та ініціалізувати їхні характеристики
+відповідно до тварини-представника.*/
+
+class Animal
+{
+protected:
+    string type;
+    float speed;
+    float weight;
+    string env;
+public:
+    Animal():type("no type"), speed(0), weight(0), env("no env"){}
+
+    Animal(string type, float s, float w, string env):type(type), speed(s), weight(w), env(env){}
+
+    void Print() const
+    {
+        cout << "Type: " << type << endl;
+        cout << "Speed: " << speed << " km/h" << endl;
+        cout << "Weight: " << weight << " kg" << endl;
+        cout << "Environment: " << env << endl;
+    }
+
+    void Move() const
+    {
+        cout << "I'm moving... " << endl;
+    }
+
+    void Say() const
+    {
+        cout << "I'm saying... " << endl;
+    }
+
+};
+
+class Bird: public Animal
+{
+public:
+    Bird(): Animal(){}
+
+    Bird(string type, float s, float w, string env): Animal(type, s, w, env){}
+
+    void Move()
+    {
+        cout << "I'm flying!" << endl;
+    }
+
+    void Say()
+    {
+        cout << "I'm chirping!" << endl;
+    }
+};
+
+class Reptile: public Animal
+{
+public:
+    Reptile(): Animal(){}
+
+    Reptile(string type, float s, float w, string env): Animal(type, s, w, env){}
+
+    void Move()
+    {
+        cout << "I'm crawling!" << endl;
+    }
+
+    void Say()
+    {
+        cout << "I'm shouting!" << endl;
+    }
+};
+
+class Fish: public Animal
+{
+public:
+    Fish(): Animal(){}
+
+    Fish(string type, float s, float w, string env): Animal(type, s, w, env){}
+
+    void Move()
+    {
+        cout << "I'm swimming!" << endl;
+    }
+
+    void Say()
+    {
+        cout << "I can't say!" << endl;
+    }
+};
+
+
+
 int main()
 {
 //    Monster monster("Grisha", 2 ,0 ,1 ,100, 150);
@@ -211,7 +321,10 @@ int main()
 //    ForeignPassport my_pass("Steve Jobs", 22, 3427, 1);
 //    my_pass.Print();
 
-
+    Bird bird("Alex", 11, 0.7, "Sky");
+    bird.Print();
+    bird.Move();
+    bird.Say();
 
     return 0;
 }
