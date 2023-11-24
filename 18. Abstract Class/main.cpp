@@ -141,18 +141,40 @@ public:
 
 class Fox : public Animal
 {
+    int age;
 public:
-    Fox():Animal(){}
-    Fox(string n, string p, float w): Animal(n,p,w){}
+    Fox():age(0), Animal(){}
+    Fox(string n, string p, float w, int age):age(age), Animal(n,p,w){}
+
+    void ShowInfo() const
+    {
+        Animal::ShowInfo();
+        cout << "Age: " << age << endl;
+    }
 
     void MakeSound()
     {
-        cout << "ejtgdfjgdoifjg" << endl;
+        cout << "shw..." << endl;
+    }
+
+    int getAge()
+    {
+        return age;
+    }
+
+    void AddAge()
+    {
+        age = age + 1;
     }
 
     void Eat()
     {
         cout << "The fox had a dinner." << endl;
+    }
+
+    void Death()
+    {
+        cout << "The fox dead." << endl;
     }
 };
 
@@ -165,12 +187,17 @@ public:
 
     void MakeSound()
     {
-        cout << "lkhhoiuhuhguo" << endl;
+        cout << "nwss.." << endl;
     }
 
     void Eat()
     {
         cout << "The rabbit had a dinner." << endl;
+    }
+
+    void Death()
+    {
+        cout << "The Rabbit dead." << endl;
     }
 };
 
@@ -178,12 +205,17 @@ public:
 
 class Plant
 {
+    string name;
 public:
+    Plant():name("No name") {}
+    Plant(string name):name(name) {}
 };
 
 class Grass : public Plant
 {
 public:
+    Grass():Plant() {}
+    Grass(string name): Plant(name) {}
 };
 
 
@@ -198,60 +230,175 @@ class Life
 public:
     Life():foxes(nullptr), amount_of_foxes(0), rabbits(nullptr), amount_of_rabbits(0), grass(nullptr), amount_of_grass(0){}
 
-    void AddFox(const Fox& fox)
+    void LifeCycle()
+    {
+        AddFox();
+        AddRabbit();
+        AddGrass();
+        for(int i = 1; i <= 50;i++)
+        {
+            cout << "------------- Day " << i << " ----------------" << endl;
+            Print();
+            cout << endl;
+
+            AddFoxAge();
+
+            if(amount_of_foxes <= 5)
+                AddFox();
+
+            CheckOld();
+
+            if(amount_of_rabbits >= amount_of_foxes)
+            {
+                RemoveRabbit();
+                foxes->Eat();
+            }
+            else
+                AddRabbit();
+
+
+            if(amount_of_grass >= amount_of_rabbits)
+            {
+                RemoveGrass();
+                rabbits->Eat();
+            }
+            else
+                AddGrass();
+
+
+
+        }
+
+    }
+
+    void AddFox()
     {
         Fox* temp = new Fox[amount_of_foxes+1];
         for (int i = 0; i < amount_of_foxes; ++i)
         {
             temp[i] = foxes[i];
         }
-        temp[amount_of_foxes] = fox;
+        int weight = 1 + rand() % 10;
+        temp[amount_of_foxes] = Fox("Fox", "Earth", weight, 0);
         delete [] foxes;
         amount_of_foxes++;
         foxes = temp;
     }
 
-    void AddRabbit(const Rabbit& rabbit)
+    void AddFoxAge()
+    {
+        for (int i = 0; i < amount_of_foxes; ++i)
+        {
+            foxes[i].AddAge();
+        }
+    }
+
+    void RemoveFox()
+    {
+        Fox* temp = new Fox[amount_of_foxes-1];
+        for (int i = 0; i < amount_of_foxes-1; ++i)
+        {
+            temp[i] = foxes[i];
+        }
+        delete [] foxes;
+        amount_of_foxes--;
+        foxes = temp;
+    }
+
+    void RemoveFoxByIndex(int index)
+    {
+        Fox* temp = new Fox[amount_of_foxes-1];
+        for (int i = 0, j = 0; i < amount_of_foxes; ++i)
+        {
+            if(i != index)
+            {
+                temp[j] = foxes[i];
+                j++;
+            }
+        }
+        delete [] foxes;
+        amount_of_foxes--;
+        foxes = temp;
+    }
+
+    void CheckOld()
+    {
+        for (int i = 0; i < amount_of_foxes; ++i)
+        {
+            if(foxes[i].getAge() > 10 )
+            {
+                foxes[i].Death();
+                RemoveFoxByIndex(i);
+            }
+        }
+    }
+
+    void AddRabbit()
     {
         Rabbit* temp = new Rabbit[amount_of_rabbits+1];
         for (int i = 0; i < amount_of_rabbits; ++i)
         {
             temp[i] = rabbits[i];
         }
-        temp[amount_of_rabbits] = rabbit;
+        int weight = 1 + rand() % 5;
+        temp[amount_of_rabbits] = Rabbit("Rabbit", "Earth", weight);
         delete [] rabbits;
         amount_of_rabbits++;
         rabbits = temp;
     }
 
-    void AddGrass(const Grass& new_grass)
+    void RemoveRabbit()
     {
-        Grass* temp = new Grass[amount_of_rabbits+1];
+        Rabbit* temp = new Rabbit[amount_of_rabbits-1];
+        for (int i = 0; i < amount_of_rabbits-1; ++i)
+        {
+            temp[i] = rabbits[i];
+        }
+        delete [] rabbits;
+        amount_of_rabbits--;
+        rabbits = temp;
+    }
+
+    void AddGrass()
+    {
+        Grass* temp = new Grass[amount_of_grass+1];
         for (int i = 0; i < amount_of_grass; ++i)
         {
             temp[i] = grass[i];
         }
-        temp[amount_of_rabbits] = new_grass;
+        temp[amount_of_grass] = Grass("Grass");
         delete [] grass;
         amount_of_grass++;
         grass = temp;
     }
 
+    void RemoveGrass()
+    {
+        Grass* temp = new Grass[amount_of_grass-1];
+        for (int i = 0; i < amount_of_grass-1; ++i)
+        {
+            temp[i] = grass[i];
+        }
+        delete [] grass;
+        amount_of_grass--;
+        grass = temp;
+    }
+
     void Print() const
     {
-        cout << "----------- Foxes -------------" << endl;
+        cout << " ---- Foxes ----: " << endl;
         for (int i = 0; i < amount_of_foxes; ++i)
         {
             foxes[i].ShowInfo();
         }
         cout << endl;
-        cout << "----------- Rabbits -----------" << endl;
+        cout << " ---- Rabbits ----: " << endl;
         for (int i = 0; i < amount_of_rabbits; ++i)
         {
             rabbits[i].ShowInfo();
         }
         cout << endl;
-        cout << "----------- Grass -------------" << endl;
+        cout << " ---- Grass ----: " << endl;
         cout << "Amount of grass: " << amount_of_grass << endl;
         cout << endl;
     }
@@ -259,6 +406,7 @@ public:
 
 int main()
 {
+    srand((unsigned)time(NULL));
 //    Lion lion("Simba", "Africa", 190, 81);
 //    lion.ShowInfo();
 //    lion.Move();
@@ -277,8 +425,7 @@ int main()
 //    RollCall(leonardo);
 
     Life life;
-    life.AddFox(Fox("Alex", "Earth", 20));
-    life.Print();
+    life.LifeCycle();
 
     return 0;
 }
