@@ -230,12 +230,12 @@ class Life
 public:
     Life():foxes(nullptr), amount_of_foxes(0), rabbits(nullptr), amount_of_rabbits(0), grass(nullptr), amount_of_grass(0){}
 
-    void LifeCycle()
+    void LifeCycle(int days)
     {
         AddFox();
         AddRabbit();
         AddGrass();
-        for(int i = 1; i <= 50;i++)
+        for(int i = 1; i <= days;i++)
         {
             cout << "------------- Day " << i << " ----------------" << endl;
             Print();
@@ -425,7 +425,7 @@ int main()
 //    RollCall(leonardo);
 
     Life life;
-    life.LifeCycle();
+    life.LifeCycle(50);
 
     return 0;
 }
