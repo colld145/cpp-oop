@@ -146,6 +146,7 @@ public:
 
     void Show() const override
     {
+        cout << "--------- Rectangle ----------" << endl;
         Shape::Show();
         cout << "Side 2: " << side2 << endl;
     }
@@ -162,7 +163,14 @@ class Circle : public Shape
 {
 public:
 
-    Circle(string name, string type, int side, int side2):Shape(name, type, side){}
+    Circle(string name, string type, int side):Shape(name, type, side){}
+
+
+    void Show() const override
+    {
+        cout << "--------- Circle ----------" << endl;
+        Shape::Show();
+    }
 
 
     void GetArea() const override
@@ -173,6 +181,84 @@ public:
         cout << "Area: " << area << endl;
     }
 };
+
+class RightTriangle : public Shape
+{
+    int side2;
+public:
+
+    RightTriangle(string name, string type, int side, int side2):side2(side2), Shape(name, type, side){}
+
+    void Show() const override
+    {
+        cout << "--------- RightTriangle ----------" << endl;
+        Shape::Show();
+        cout << "Side 2: " << side2 << endl;
+    }
+
+
+    void GetArea() const override
+    {
+        int area;
+        area = (1/2)*side*side2;
+        cout << "Area: " << area << endl;
+    }
+};
+
+class Triangle : public Shape
+{
+    int height;
+public:
+
+    Triangle(string name, string type, int side, int height):height(height), Shape(name, type, side){}
+
+    void Show() const override
+    {
+        cout << "--------- Triangle ----------" << endl;
+        Shape::Show();
+        cout << "Height: " << height << endl;
+    }
+
+
+    void GetArea() const override
+    {
+        int area;
+        area = (1/2)*side*height;
+        cout << "Area: " << area << endl;
+    }
+};
+
+class Trapeze : public Shape
+{
+    int height;
+    int side2;
+public:
+
+    Trapeze(string name, string type, int side, int height, int side2):height(height), side2(side2), Shape(name, type, side){}
+
+    void Show() const override
+    {
+        cout << "--------- Trapeze ----------" << endl;
+        Shape::Show();
+        cout << "Side2: " << side2 << endl;
+        cout << "Height: " << height << endl;
+    }
+
+
+    void GetArea() const override
+    {
+        int area;
+        area = (1/2)*(side*side2)*height;
+        cout << "Area: " << area << endl;
+    }
+};
+
+
+void TestShape(Shape& shape)
+{
+    shape.Show();
+    shape.GetArea();
+}
 
 
 int main()
@@ -218,7 +304,10 @@ int main()
 
     // ------------------------------------
 
-
+    Rectangle rect("rectangle1", "Rectangle", 5, 5);
+    TestShape(rect);
+    Circle circle("circle1", "Circle", 5);
+    TestShape(circle);
 
 
     return 0;
