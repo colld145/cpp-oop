@@ -1,0 +1,3 @@
+/Users/macbook/Documents/cpp-oop/23. Vector2/cmake-build-debug/CMakeFiles/23__Vector2.dir
+/Users/macbook/Documents/cpp-oop/23. Vector2/cmake-build-debug/CMakeFiles/edit_cache.dir
+/Users/macbook/Documents/cpp-oop/23. Vector2/cmake-build-debug/CMakeFiles/rebuild_cache.dir
